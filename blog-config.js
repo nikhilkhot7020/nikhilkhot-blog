@@ -3,7 +3,7 @@
 // To add a new post, copy one block and paste it at the top.
 // Set "comingSoon: true" for posts not ready yet.
 // ============================================================
-
+ 
 const BLOG_POSTS = [
   {
     id: "learning-styles",
@@ -66,20 +66,21 @@ const BLOG_POSTS = [
     date: ""
   }
 ];
-
+ 
 // ============================================================
 // JSONBin Config — your free database (no billing needed!)
 // Get your free key at: https://jsonbin.io → Sign up → API Keys
 // ============================================================
 const JSONBIN_CONFIG = {
-  apiKey: "$2a$10$Arq55wHHMt9gvH6VXDD1tuLXtoUP5e1lTm5t0wPy.OKCamn8ueKU2",  // ← Paste your JSONBin Master Key here
-  visitorsBinId: "6a04f933c0954111d81cf569", // ← Created automatically in setup
-  likesBinId: "6a04fa03c0954111d81cf966",       // ← Created automatically in setup
+  apiKey: "$2a$10$Arq55wHHMt9gvH6VXDD1tuLXtoUP5e1lTm5t0wPy.OKCamn8ueKU2",   // ← Paste your JSONBin Master Key here
+  visitorsBinId: "6a04f933c0954111d81cf569", // ← Bin for reader count
+  likesBinId: "6a04fa03c0954111d81cf966",       // ← Bin for post likes
+  usersBinId: "6a0568b1adc21f119a9a3014",       // ← Bin for registered user emails (NEW)
 };
-
+ 
 // Admin email — only this person can open admin.html
-const ADMIN_EMAIL = "nikhilkhot085@gmail.com"; // ← Change to YOUR email
-
+const ADMIN_EMAIL = "nikhilkhot@gmail.com"; // ← Change to YOUR email
+ 
 // Firebase config (for Google login only — Firestore NOT used)
 const firebaseConfig = {
   apiKey: "AIzaSyDBdMlwGYkSS1ZNkBayGhd4K6d3N3nRF64",
