@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login </title>
+<title>Login</title>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -198,7 +198,7 @@
   </div>
 
   <div class="msg" id="msg"></div>
- 
+  <a href="index.html" class="back-link">← Back to blog</a>
 </div>
 
 <script src="blog-config.js"></script>
@@ -226,7 +226,8 @@
 
   window.googleLogin = async function() {
     try {
-      await signInWithPopup(auth, provider);
+      const cred = await signInWithPopup(auth, provider);
+      await saveUserToJSONBin(cred.user, 'google');
       showMsg('Signed in! Redirecting...', 'success');
       setTimeout(() => window.location.href = 'index.html', 1000);
     } catch(e) {
@@ -238,7 +239,8 @@
     const email = document.getElementById('loginEmail').value;
     const pass = document.getElementById('loginPassword').value;
     try {
-      await signInWithEmailAndPassword(auth, email, pass);
+      const cred = await signInWithEmailAndPassword(auth, email, pass);
+      await saveUserToJSONBin(cred.user, 'email');
       showMsg('Signed in! Redirecting...', 'success');
       setTimeout(() => window.location.href = 'index.html', 1000);
     } catch(e) {
@@ -255,6 +257,7 @@
     try {
       const cred = await createUserWithEmailAndPassword(auth, email, pass);
       await updateProfile(cred.user, { displayName: name });
+      await saveUserToSONBin({ ...cred.user, displayName: name }, 'email');
       showMsg('Account created! Redirecting...', 'success');
       setTimeout(() => window.location.href = 'index.html', 1000);
     } catch(e) {
@@ -262,6 +265,33 @@
       else showMsg(e.message, 'error');
     }
   };
+
+  // Save user to JSONBin (skips if already saved, skips admin)
+  async function saveUserToSONBin(user, provider) { return saveUserToJSONBin(user, provider); }
+  async function saveUserToJSONBin(user, provider) {
+    if (!JSONBIN_CONFIG.apiKey || JSONBIN_CONFIG.apiKey === 'YOUR_JSONBIN_API_KEY_HERE') return;
+    if (user.email === ADMIN_EMAIL) return; // Never save admin
+    try {
+      const res = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_CONFIG.usersBinId}/latest`, {
+        headers: { 'X-Master-Key': JSONBIN_CONFIG.apiKey }
+      });
+      const data = await res.json();
+      const users = data.record?.users || [];
+      // Don't add duplicates
+      if (users.some(u => u.email === user.email)) return;
+      users.push({
+        email: user.email,
+        name: user.displayName || '',
+        provider: provider,
+        date: new Date().toISOString()
+      });
+      await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_CONFIG.usersBinId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', 'X-Master-Key': JSONBIN_CONFIG.apiKey },
+        body: JSON.stringify({ users })
+      });
+    } catch(e) { /* silent — login still works even if save fails */ }
+  }
 </script>
 </body>
 </html>
