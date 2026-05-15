@@ -3,33 +3,311 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ChildMind | Science-Backed Education</title>
-<link href="https://fonts.googleapis.com/css2?family=Lora:wght@600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<title>CuriousMinds — Science-backed education for every child</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <style>
-  :root { --accent: #2563eb; --dark: #0f172a; --bg: #f8fafc; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: #1e293b; margin: 0; }
-  nav { background: #fff; padding: 1.2rem 5%; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 100; }
-  .logo { font-family: 'Lora', serif; font-size: 24px; font-weight: 700; color: var(--dark); text-decoration: none; }
-  .logo span { color: var(--accent); }
-  .hero { background: var(--dark); color: #fff; padding: 120px 5%; text-align: center; }
-  .hero h1 { font-family: 'Lora', serif; font-size: 52px; margin: 20px 0; }
-  .hero p { max-width: 600px; margin: 0 auto 40px; font-size: 19px; color: #94a3b8; }
-  .grid { max-width: 1200px; margin: 60px auto; padding: 0 5%; display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 30px; }
-  .card { background: #fff; border-radius: 16px; padding: 30px; border: 1px solid #e2e8f0; text-decoration: none; color: inherit; transition: 0.3s; }
-  .card:hover { transform: translateY(-5px); border-color: var(--accent); }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f7f8fc;--surface:#fff;--text:#0f1923;--muted:#64748b;
+  --border:#e4e9f0;--teal:#0d9488;--teal2:#2dd4bf;--sky:#0ea5e9;
+  --hero:#0c1a2e;--amber:#f59e0b;
+}
+body.dark{
+  --bg:#0a0f1a;--surface:#111827;--text:#f1f5f9;--muted:#94a3b8;
+  --border:#1e293b;--teal:#2dd4bf;--teal2:#5eead4;--hero:#060d1a;
+}
+body{background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);min-height:100vh;transition:background .3s,color .3s}
+
+/* ── NAV ── */
+nav{background:var(--surface);border-bottom:1px solid var(--border);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;height:58px;gap:10px}
+.nav-brand{display:flex;align-items:center;gap:9px;text-decoration:none;flex-shrink:0}
+.nav-icon{width:32px;height:32px;background:linear-gradient(135deg,#0d9488,#0ea5e9);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px}
+.nav-name{font-family:'Bricolage Grotesque',sans-serif;font-size:17px;font-weight:700;color:var(--text);letter-spacing:-.3px}
+.nav-name span{color:var(--teal)}
+.nav-right{display:flex;align-items:center;gap:7px;flex-wrap:nowrap}
+.search-wrap{position:relative;flex-shrink:1}
+.search-wrap input{border:1px solid var(--border);background:var(--bg);color:var(--text);border-radius:9px;padding:7px 12px 7px 32px;font-size:13px;width:170px;outline:none;font-family:'DM Sans',sans-serif;transition:border-color .2s,width .2s}
+.search-wrap input:focus{border-color:var(--teal);width:210px}
+.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none;line-height:0}
+.btn-nav{background:none;border:1px solid var(--border);border-radius:9px;padding:6px 12px;font-size:12px;font-weight:500;cursor:pointer;color:var(--muted);font-family:'DM Sans',sans-serif;transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;gap:5px;white-space:nowrap;flex-shrink:0}
+.btn-nav:hover{border-color:var(--teal);color:var(--teal)}
+.btn-primary{background:var(--teal)!important;color:#fff!important;border-color:var(--teal)!important}
+.btn-primary:hover{opacity:.88}
+.vpill{font-size:11px;color:var(--muted);background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:5px 10px;display:flex;align-items:center;gap:5px;white-space:nowrap;flex-shrink:0}
+.vdot{width:6px;height:6px;background:#22c55e;border-radius:50%;animation:pulse 2s infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* ── HERO ── */
+.hero{background:var(--hero);padding:4.5rem 1.5rem 4rem;text-align:center;position:relative;overflow:hidden}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(13,148,136,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(13,148,136,.06) 1px,transparent 1px);background-size:40px 40px;pointer-events:none}
+.hero-orb1{position:absolute;top:-120px;right:5%;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(13,148,136,.14) 0%,transparent 70%);pointer-events:none}
+.hero-orb2{position:absolute;bottom:-80px;left:2%;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(14,165,233,.09) 0%,transparent 70%);pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(13,148,136,.15);border:1px solid rgba(13,148,136,.3);color:#2dd4bf;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:1.75rem;position:relative;z-index:1}
+.hero-dot{width:5px;height:5px;background:#2dd4bf;border-radius:50%}
+.hero h1{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(26px,4.5vw,46px);font-weight:700;color:#fff;line-height:1.15;letter-spacing:-.5px;margin-bottom:1.1rem;position:relative;z-index:1;max-width:660px;margin-left:auto;margin-right:auto}
+.hero h1 em{font-style:normal;background:linear-gradient(90deg,#2dd4bf,#38bdf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.5);max-width:480px;margin:.75rem auto 2rem;line-height:1.75;position:relative;z-index:1}
+.hero-tags{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+.hero-tag{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.7);font-size:12px;padding:5px 13px;border-radius:20px}
+
+/* ── STATS ── */
+.stats{background:var(--surface);border-bottom:1px solid var(--border);padding:.9rem 1.5rem;display:flex;align-items:center;justify-content:center;gap:2.5rem;flex-wrap:wrap}
+.stat{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
+.stat-n{font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:700;color:var(--teal)}
+
+/* ── MAIN ── */
+.main{max-width:840px;margin:0 auto;padding:2.5rem 1.25rem 5rem}
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
+.sec-title{font-family:'Bricolage Grotesque',sans-serif;font-size:19px;font-weight:700;color:var(--text);letter-spacing:-.2px}
+.count-pill{font-size:12px;color:var(--muted);background:var(--border);padding:3px 11px;border-radius:20px}
+
+/* ── FEATURED ── */
+.feat-card{background:var(--surface);border-radius:18px;overflow:hidden;margin-bottom:1.25rem;border:1px solid var(--border);box-shadow:0 2px 12px rgba(0,0,0,.05);text-decoration:none;display:block;transition:transform .25s,box-shadow .25s}
+.feat-card:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(0,0,0,.1)}
+.feat-banner{background:linear-gradient(135deg,#0c1a2e,#0d3050);padding:2.5rem 2rem;position:relative;overflow:hidden}
+.feat-line{position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#0d9488,#0ea5e9,#f59e0b)}
+.feat-orb{position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(13,148,136,.2) 0%,transparent 70%)}
+.feat-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.35);color:#fbbf24;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:4px 11px;border-radius:20px;margin-bottom:.9rem;position:relative;z-index:1}
+.feat-title{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(18px,2.8vw,24px);font-weight:700;color:#fff;line-height:1.3;letter-spacing:-.2px;position:relative;z-index:1}
+.feat-body{padding:1.5rem 2rem 1.75rem}
+.feat-excerpt{font-size:15px;color:var(--muted);line-height:1.75;margin-bottom:1.1rem}
+.meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ctag{font-size:11px;font-weight:600;padding:4px 10px;border-radius:6px}
+.ct1{background:rgba(13,148,136,.1);color:#0d9488}.ct2{background:rgba(14,165,233,.1);color:#0284c7}
+.ct3{background:rgba(245,158,11,.1);color:#d97706}.ct4{background:rgba(139,92,246,.1);color:#7c3aed}
+.ct5{background:rgba(244,63,94,.1);color:#e11d48}
+.read-more{margin-left:auto;font-size:13px;font-weight:600;color:var(--teal);display:flex;align-items:center;gap:5px;white-space:nowrap}
+
+/* ── GRID ── */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
+.card{background:var(--surface);border-radius:15px;padding:1.4rem 1.5rem;border:1px solid var(--border);text-decoration:none;display:block;transition:transform .2s,box-shadow .2s,border-color .2s;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--teal),var(--sky));transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.09);border-color:var(--teal)}
+.card:hover::before{transform:scaleX(1)}
+.card-icon{font-size:26px;margin-bottom:.75rem;display:block}
+.card-cat{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:.4rem}
+.card-title{font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:.5rem;letter-spacing:-.1px}
+.card-excerpt{font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:.75rem}
+.card-date{font-size:11px;color:var(--muted)}
+.soon{opacity:.55;cursor:default}.soon:hover{transform:none;box-shadow:none;border-color:var(--border)}
+.soon:hover::before{transform:scaleX(0)}
+.soon-badge{display:inline-flex;align-items:center;gap:4px;background:var(--border);color:var(--muted);font-size:11px;padding:3px 9px;border-radius:6px}
+
+/* ── MODAL ── */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:500;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:1.75rem;max-width:500px;width:92%;max-height:80vh;overflow-y:auto;box-shadow:0 24px 60px rgba(0,0,0,.35)}
+.modal-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.1rem}
+.modal-title{font-family:'Bricolage Grotesque',sans-serif;font-size:17px;font-weight:700;color:var(--text)}
+.modal-close{background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted);padding:2px 6px;border-radius:6px;transition:background .2s;line-height:1}
+.modal-close:hover{background:var(--border)}
+
+/* ── SCROLL TOP ── */
+#scrollTop{position:fixed;bottom:1.75rem;right:1.75rem;background:var(--teal);color:#fff;border:none;width:40px;height:40px;border-radius:11px;font-size:16px;cursor:pointer;box-shadow:0 4px 16px rgba(13,148,136,.35);display:none;align-items:center;justify-content:center;transition:transform .2s;z-index:99}
+#scrollTop:hover{transform:scale(1.08)}
+.noresults{text-align:center;padding:4rem 2rem;color:var(--muted)}
+.noresults strong{display:block;font-size:2rem;margin-bottom:.75rem}
+
+/* ── FOOTER ── */
+footer{background:#0c1a2e;color:rgba(255,255,255,.35);padding:2.5rem 1.5rem;text-align:center;font-size:13px;line-height:2}
+.footer-brand{font-family:'Bricolage Grotesque',sans-serif;font-size:19px;font-weight:700;color:#fff;margin-bottom:.35rem}
+.footer-brand span{color:#2dd4bf}
+.footer-mission{font-size:13px;color:rgba(255,255,255,.35);max-width:400px;margin:0 auto 1.25rem;line-height:1.7}
+.footer-links{display:flex;align-items:center;justify-content:center;gap:1.5rem;flex-wrap:wrap}
+.footer-links a{color:rgba(255,255,255,.35);text-decoration:none;font-size:12px;transition:color .2s}
+.footer-links a:hover{color:#2dd4bf}
+
+/* ── RESPONSIVE ── */
+@media(max-width:640px){
+  nav{padding:0 1rem;height:54px}
+  .search-wrap,.vpill{display:none}
+  .btn-nav span{display:none}
+  .hero{padding:3rem 1.25rem 2.75rem}
+  .grid{grid-template-columns:1fr}
+  .feat-banner{padding:2rem 1.5rem}
+  .feat-body{padding:1.25rem 1.5rem 1.5rem}
+  .stats{gap:1.25rem;padding:.75rem 1rem}
+}
 </style>
 </head>
 <body>
-<nav><a href="index.html" class="logo">Child<span>Mind</span></a></nav>
-<section class="hero"><h1>Unlock the Science of <span>Learning</span></h1><p>Professional insights and research-backed strategies for modern educators.</p></section>
-<div class="grid" id="postGrid"></div>
+
+<nav>
+  <a class="nav-brand" href="index.html">
+    <div class="nav-icon">🧠</div>
+    <span class="nav-name">Curious<span>Minds</span></span>
+  </a>
+  <div class="nav-right">
+    <div class="search-wrap">
+      <span class="search-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span>
+      <input type="text" id="searchInput" placeholder="Search articles…" oninput="filterPosts(this.value)">
+    </div>
+    <div class="vpill">
+      <span class="vdot"></span>
+      <span id="visitorCount">…</span> readers
+    </div>
+    <button class="btn-nav" onclick="toggleDark()" id="themeBtn">🌙</button>
+    <button class="btn-nav" onclick="openRL()" id="rlBtn">🔖 <span>Saved</span><span id="rlBadge" style="display:none;background:var(--teal);color:#fff;border-radius:20px;padding:1px 6px;font-size:10px;margin-left:2px"></span></button>
+    <a href="login.html" class="btn-nav btn-primary" id="authBtn">Sign In</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-orb1"></div>
+  <div class="hero-orb2"></div>
+  <div class="hero-badge"><span class="hero-dot"></span>Science-backed · Evidence-based · Child-first</div>
+  <h1>Every child deserves to learn<br>with <em>curiosity & care</em></h1>
+  <p class="hero-sub">Research-driven insights on child psychology, learning, and development — written for every parent and educator.</p>
+  <div class="hero-tags">
+    <span class="hero-tag">🧠 Child Psychology</span>
+    <span class="hero-tag">📚 Learning Science</span>
+    <span class="hero-tag">👨‍👩‍👧 Parenting</span>
+    <span class="hero-tag">🔬 Research</span>
+    <span class="hero-tag">💡 Development</span>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat"><span class="stat-n" id="statArt">—</span><span>articles published</span></div>
+  <div class="stat"><span class="stat-n" id="statRead">—</span><span>readers this month</span></div>
+  <div class="stat"><span class="stat-n">100%</span><span>science-backed</span></div>
+</div>
+
+<div class="main">
+  <div class="sec-hdr">
+    <h2 class="sec-title">Latest Research Articles</h2>
+    <span class="count-pill" id="publishedCount">—</span>
+  </div>
+  <div id="featuredPost"></div>
+  <div class="sec-hdr" style="margin-top:2.5rem" id="csHeader">
+    <h2 class="sec-title">Coming Soon</h2>
+  </div>
+  <div class="grid" id="postGrid"></div>
+  <div class="noresults" id="noResults" style="display:none"><strong>🔍</strong>No articles match your search.</div>
+</div>
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<div class="overlay" id="rlOverlay" style="display:none">
+  <div class="modal">
+    <div class="modal-hdr">
+      <div class="modal-title">🔖 Your Reading List</div>
+      <button class="modal-close" onclick="closeRL()">×</button>
+    </div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:1.1rem">Articles you've saved. Log in to sync across devices.</p>
+    <div id="rlItems"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-brand">Curious<span>Minds</span></div>
+  <p class="footer-mission">Creating a future where every child learns with curiosity, care, and scientifically guided education.</p>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="admin.html">Admin</a>
+  </div>
+  <p style="margin-top:1.5rem;font-size:11px;color:rgba(255,255,255,.2)">© 2025 CuriousMinds · All content is research-based and reviewed</p>
+</footer>
+
 <script src="blog-config.js"></script>
 <script>
-  const grid = document.getElementById('postGrid');
-  BLOG_POSTS.forEach(p => {
-    if(p.comingSoon) return;
-    grid.innerHTML += `<a href="${p.file}" class="card"><div style="font-size:40px; margin-bottom:20px;">${p.icon}</div><h3 style="font-family:'Lora',serif; font-size:22px; margin:0 0 10px;">${p.title}</h3><p style="color:#64748b; font-size:15px; margin:0;">${p.excerpt}</p></a>`;
-  });
+(function(){try{const s=localStorage.getItem("nk_posts");if(s){const p=JSON.parse(s);if(Array.isArray(p)&&p.length){BLOG_POSTS.length=0;p.forEach(x=>BLOG_POSTS.push(x))}}}catch(e){}})();
+</script>
+<script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import{getAuth,onAuthStateChanged,signOut}from"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+onAuthStateChanged(auth,user=>{
+  if(!user){window.location.href='login.html';return;}
+  const btn=document.getElementById('authBtn');
+  btn.textContent=user.displayName?.split(' ')[0]||'Account';
+  btn.href='#';btn.classList.remove('btn-primary');
+  btn.onclick=e=>{e.preventDefault();signOut(auth);};
+  user.email!==ADMIN_EMAIL?loadVisitors():showCount();
+});
+</script>
+<script>
+const TC=['ct1','ct2','ct3','ct4','ct5'];
+function tc(i){return TC[i%TC.length];}
+
+function render(filter=''){
+  const q=filter.toLowerCase().trim();
+  const pub=BLOG_POSTS.filter(p=>!p.comingSoon);
+  const cs=BLOG_POSTS.filter(p=>p.comingSoon);
+  const match=p=>!q||p.title.toLowerCase().includes(q)||p.excerpt.toLowerCase().includes(q)||p.tags.some(t=>t.toLowerCase().includes(q));
+  const fp=pub.filter(match);
+  const fc=cs.filter(match);
+
+  document.getElementById('publishedCount').textContent=fp.length+' article'+(fp.length!==1?'s':'');
+  document.getElementById('statArt').textContent=fp.length;
+
+  const fe=document.getElementById('featuredPost');
+  fe.innerHTML='';
+  if(fp.length>0){
+    const f=fp[0];
+    const fcard=document.createElement('a');
+    fcard.href=f.file;fcard.className='feat-card';
+    fcard.innerHTML=`<div class="feat-banner"><div class="feat-line"></div><div class="feat-orb"></div><div class="feat-badge">⭐ Featured Article</div><div class="feat-title">${f.title}</div></div><div class="feat-body"><p class="feat-excerpt">${f.excerpt}</p><div class="meta">${f.tags.map((t,i)=>`<span class="ctag ${tc(i)}">${t}</span>`).join('')}<span class="read-more">Read article →</span></div></div>`;
+    fe.appendChild(fcard);
+    if(fp.length>1){
+      const g=document.createElement('div');g.className='grid';g.style.marginBottom='1.25rem';
+      g.innerHTML=fp.slice(1).map(p=>`<a href="${p.file}" class="card"><span class="card-icon">${p.icon}</span><div class="card-cat">${p.tags[0]||'Research'}</div><div class="card-title">${p.title}</div><div class="card-excerpt">${p.excerpt}</div><div class="card-date">${p.date}</div></a>`).join('');
+      fe.appendChild(g);
+    }
+  }
+
+  const pg=document.getElementById('postGrid');
+  const csh=document.getElementById('csHeader');
+  if(fc.length>0){
+    pg.innerHTML=fc.map(p=>`<div class="card soon"><span class="card-icon">${p.icon}</span><div class="card-cat">${p.tags[0]||'Research'}</div><div class="card-title">${p.title}</div><div class="card-excerpt">${p.excerpt}</div><span class="soon-badge">🕐 Coming soon</span></div>`).join('');
+    csh.style.display='';
+  }else{pg.innerHTML='';csh.style.display='none';}
+
+  document.getElementById('noResults').style.display=(fp.length===0&&fc.length===0)?'':'none';
+}
+window.filterPosts=v=>render(v);
+render();
+
+window.toggleDark=function(){
+  document.body.classList.toggle('dark');
+  const d=document.body.classList.contains('dark');
+  document.getElementById('themeBtn').textContent=d?'☀️':'🌙';
+  localStorage.setItem('theme',d?'dark':'light');
+};
+if(localStorage.getItem('theme')==='dark'){document.body.classList.add('dark');document.getElementById('themeBtn').textContent='☀️';}
+
+window.addEventListener('scroll',()=>{
+  document.getElementById('scrollTop').style.display=window.scrollY>300?'flex':'none';
+});
+
+async function loadVisitors(){
+  if(!JSONBIN_CONFIG.apiKey||JSONBIN_CONFIG.apiKey==='YOUR_JSONBIN_API_KEY_HERE'){setVC('—');return;}
+  try{
+    const r=await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_CONFIG.visitorsBinId}/latest`,{headers:{'X-Master-Key':JSONBIN_CONFIG.apiKey}});
+    const d=await r.json();const c=(d.record?.visitors||0)+1;
+    await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_CONFIG.visitorsBinId}`,{method:'PUT',headers:{'Content-Type':'application/json','X-Master-Key':JSONBIN_CONFIG.apiKey},body:JSON.stringify({visitors:c,lastUpdated:new Date().toISOString()})});
+    setVC(c.toLocaleString());
+  }catch(e){setVC('—');}
+}
+async function showCount(){
+  if(!JSONBIN_CONFIG.apiKey||JSONBIN_CONFIG.apiKey==='YOUR_JSONBIN_API_KEY_HERE'){setVC('—');return;}
+  try{const r=await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_CONFIG.visitorsBinId}/latest`,{headers:{'X-Master-Key':JSONBIN_CONFIG.apiKey}});const d=await r.json();setVC((d.record?.visitors||0).toLocaleString());}catch(e){setVC('—');}
+}
+function setVC(v){document.getElementById('visitorCount').textContent=v;document.getElementById('statRead').textContent=v;}
+
+function getBM(){try{return JSON.parse(localStorage.getItem('nk_bookmarks')||'[]');}catch(e){return[];}}
+function updateBadge(){const c=getBM().length;const b=document.getElementById('rlBadge');if(!b)return;b.textContent=c;b.style.display=c?'inline':'none';}
+window.openRL=function(){
+  const items=getBM();const el=document.getElementById('rlItems');
+  el.innerHTML=items.length===0?'<div style="text-align:center;padding:2rem 0;color:var(--muted);font-size:14px">No saved articles yet.<br><br>Tap 🔖 on any article to save it here.</div>':items.map(b=>`<div style="background:var(--bg);border:1px solid var(--border);border-radius:11px;padding:.85rem 1rem;margin-bottom:.65rem;display:flex;align-items:center;justify-content:space-between;gap:10px"><div style="flex:1;min-width:0"><a href="${b.url}" style="font-size:14px;font-weight:500;color:var(--text);text-decoration:none;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${b.title}</a><div style="font-size:11px;color:var(--muted);margin-top:3px">Saved ${b.saved||''}</div></div><button onclick="removeBM('${b.id}')" style="background:none;border:none;font-size:18px;cursor:pointer;color:var(--muted);flex-shrink:0">×</button></div>`).join('');
+  document.getElementById('rlOverlay').style.display='flex';
+};
+window.closeRL=function(){document.getElementById('rlOverlay').style.display='none';};
+window.removeBM=function(id){localStorage.setItem('nk_bookmarks',JSON.stringify(getBM().filter(b=>b.id!==id)));updateBadge();openRL();};
+document.getElementById('rlOverlay').addEventListener('click',e=>{if(e.target===document.getElementById('rlOverlay'))closeRL();});
+updateBadge();
+window.addEventListener('storage',updateBadge);
 </script>
 </body>
 </html>
